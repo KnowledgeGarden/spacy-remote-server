@@ -8,6 +8,7 @@ import org.topicquests.support.ResultPojo;
 import org.topicquests.support.api.IResult;
 
 import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 
 /**
  * @author jackpark
@@ -29,18 +30,31 @@ public class SpacyAgent implements ISpacyAgent {
 		http = cl;
 		SERVER = environment.getStringProperty("ServerURl");
 		PORT = environment.getStringProperty("ServerPort");
-		URL = "http://"+SERVER+":"+Integer.parseInt(PORT)+"/analyze/foo";
+		URL = "http://"+SERVER+":"+Integer.parseInt(PORT)+"/analyze/";
 	}
 
 	@Override
 	public IResult processSentence(JSONObject sentence) {
 		IResult result = new ResultPojo();
+		result.setResultObject(sentence);
 		String text = sentence.toJSONString();
 		//TODO may have to url encode this
 		IResult r = http.put(URL, text);
-		environment.logDebug("A "+r.getErrorString());
-		environment.logDebug("B "+r.getResultObject());
-		//TODO convert r to a JSONObject and put it in result
+		//environment.logDebug("A "+r.getErrorString());
+		//environment.logDebug("B "+r.getResultObject());
+		String json = (String)r.getResultObject();
+		
+		if (json != null) {
+			try {
+				JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
+				JSONObject jo = (JSONObject)p.parse(json);
+				sentence.put("results", jo);
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.addErrorString(e.getLocalizedMessage());
+				environment.logError(e.getLocalizedMessage(), e);
+			}
+		}
 		return result;
 	}
 

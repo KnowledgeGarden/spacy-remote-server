@@ -28,11 +28,10 @@ def form(model):
     </http>""")
 
 
-@app.route("/analyze/<model>", methods=['POST'])
-def analyze(model):
-    print('A', model)
+@app.route("/analyze/", methods=['POST'])
+def analyze():
     text = request.json['text']
-    print('B', text)
+    print('A', text)
     result = client.process_text(text)   
     if not result:
         return Response(status=400)
