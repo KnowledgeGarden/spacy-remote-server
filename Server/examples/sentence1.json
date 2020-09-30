@@ -1,0 +1,64 @@
+{
+	'text': 'co2 causes climate change',
+	'len': 4,
+	'tokens': ['co2', 'causes', 'climate', 'change'],
+	'noun_phrases': ['co2', 'climate change'],
+	'parse_tree': [{
+		'word': 'causes',
+		'lemma': 'cause',
+		'NE': '',
+		'POS_fine': 'VBZ',
+		'POS_coarse': 'VERB',
+		'arc': 'ROOT',
+		'modifiers': [{
+			'word': 'co2',
+			'lemma': 'co2',
+			'NE': '',
+			'POS_fine': 'NNP',
+			'POS_coarse': 'PROPN',
+			'arc': 'nsubj',
+			'modifiers': []
+		}, {
+			'word': 'change',
+			'lemma': 'change',
+			'NE': '',
+			'POS_fine': 'NN',
+			'POS_coarse': 'NOUN',
+			'arc': 'dobj',
+			'modifiers': [{
+				'word': 'climate',
+				'lemma': 'climate',
+				'NE': '',
+				'POS_fine': 'NN',
+				'POS_coarse': 'NOUN',
+				'arc': 'compound',
+				'modifiers': []
+			}]
+		}]
+	}],
+	'parse_list': [{
+		'word': 'co2',
+		'lemma': 'co2',
+		'NE': '',
+		'POS_fine': 'NNP',
+		'POS_coarse': 'PROPN'
+	}, {
+		'word': 'causes',
+		'lemma': 'cause',
+		'NE': '',
+		'POS_fine': 'VBZ',
+		'POS_coarse': 'VERB'
+	}, {
+		'word': 'climate',
+		'lemma': 'climate',
+		'NE': '',
+		'POS_fine': 'NN',
+		'POS_coarse': 'NOUN'
+	}, {
+		'word': 'change',
+		'lemma': 'change',
+		'NE': '',
+		'POS_fine': 'NN',
+		'POS_coarse': 'NOUN'
+	}]
+}
