@@ -30,9 +30,12 @@ def form(model):
 
 @app.route("/analyze/", methods=['POST'])
 def analyze():
-    text = request.json['text']
-    print('A', text)
+    jsonObject = request.json
+    print('A', jsonObject)
+    text = jsonObject['text']
+    print('B', text)
     result = client.process_text(text)   
     if not result:
         return Response(status=400)
+    print('C', result)
     return result  # auto-jsonified

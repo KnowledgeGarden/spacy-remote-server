@@ -12,25 +12,34 @@ DEFAULT_MODEL = 'en_core_web_lg'
 class SpacyClient:
 
     def __init__(self):
-        print('loading model')
+        print('loading models')
+        self.models = []
         self.nlp = spacy.load('en_core_web_lg')  # will take some time to load
-        print('model loaded')
+        self.models.append(self.nlp)
+        self.nlp1 = spacy.load('en_core_web_lg')  # will take some time to load
+        self.models.append(self.nlp1)
+        print('models loaded', len(self.models))
 
     # { sentenceId: foo, text: sometext }
     def process_json(self, jsonText):
         return self.process_text(jsonText['text'])
 
     def process_text(self, sentence):
-        doc = self.nlp(sentence)
-        reply = OrderedDict([
-            ("text", doc.text),
-            ("len", len(doc)),
-            ("tokens", [token.text for token in doc]),
-            ("noun_phrases", [token.text for token in doc.noun_chunks]),
-            ("parse_tree", parse_tree(doc)),
-            ("parse_list", parse_list(doc))
-        ])
-        return reply
+        result = OrderedDict()
+        cursor = 0
+        for model in self.models:
+            doc = model(sentence)
+            reply = OrderedDict([
+                ("text", doc.text),
+                ("len", len(doc)),
+                ("tokens", [token.text for token in doc]),
+                ("noun_phrases", [token.text for token in doc.noun_chunks]),
+                ("parse_tree", parse_tree(doc)),
+                ("parse_list", parse_list(doc))
+            ])
+            result[str(cursor)] = reply
+            cursor += 1
+        return result
 
 
 CLIENTS = {}
