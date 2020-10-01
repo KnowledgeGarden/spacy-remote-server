@@ -58,7 +58,7 @@ def analyze_all():
     elif request.forms:
         models = request.forms.get('models', [])
     for model in models:
-        get_client(models)
+        get_client(model)
     for name, client in CLIENTS.items():
         if not client:
             continue
