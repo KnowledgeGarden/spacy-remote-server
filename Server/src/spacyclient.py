@@ -1,6 +1,4 @@
-
-# pip3 install spacy
-# python3 -m spacy download en_core_web_lg
+# SpacyClient for running all models against a given sentence
 
 from collections import OrderedDict
 
@@ -13,16 +11,13 @@ class SpacyClient:
     def __init__(self, model):
         self.nlp = spacy.load(model)  # will take some time to load
 
-    # { cmd: foo, text: sometext }
-    # @see https://github.com/kengz/spacy-nlp/blob/master/src/py/nlp.py
-
     def process_json(self, jsonText):
         return self.process_text(jsonText['text'])
 
     def process_text(self, sentence):
         doc = self.nlp(sentence)
         reply = OrderedDict([
-            ("text", doc.text),
+            # ("text", doc.text),
             ("len", len(doc)),
             ("tokens", [token.text for token in doc]),
             ("noun_phrases", [token.text for token in doc.noun_chunks]),
