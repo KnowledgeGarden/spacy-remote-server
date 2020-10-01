@@ -17,6 +17,16 @@ System tested on Python 3.7+
 * python3 -m spacy download en_core_web_lg
 * pip3 install scispacy
 * install the large models found [here](https://allenai.github.io/scispacy/)
+  
+
+### SciSpacy Model Shortcuts which might be inaccurate
+* pip3 install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.5/en_core_sci_lg-0.2.5.tar.gz
+* pip3 install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.5/en_ner_craft_md-0.2.5.tar.gz
+* pip3 install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.5/en_ner_jnlpba_md-0.2.5.tar.gz
+* pip 3 install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.5/en_ner_bc5cdr_md-0.2.5.tar.gz
+* pip3 install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.5/en_ner_bionlp13cg_md-0.2.5.tar.gz
+
+
 
 ## Work In Progress
 Actual development work is being done in /src3; when all algorithms are worked out, code cleanup will change to a single /src directory.
