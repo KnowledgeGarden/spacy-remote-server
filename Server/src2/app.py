@@ -8,7 +8,7 @@ app.config['FLASK_DEBUG'] = True
 
 @app.route("/")
 def home(): 
-    return redirect(f'/{DEFAULT_MODEL}', status=302)
+    return redirect(f'/{DEFAULT_MODEL}')
 
 
 @app.route("/<model>", methods=['GET'])
