@@ -1,7 +1,6 @@
-# src2 directory
+# src directory
 
-This is the first experiment which replaces the server socket with a Flask-based http server.
-
+This is the full platform code after many experiments.
 This is code now tested with this curl:
 
 `curl -d '{"models":["en_ner_jnlpba_md","en_ner_bc5cdr_md","en_ner_bionlp13cg_md","en_ner_craft_md","en_core_web_lg","en_core_sci_lg"],"text":"CO2 causes climate change"}' -H "Content-Type: application/json" -X POST http://localhost:5000/all`
