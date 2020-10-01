@@ -1,6 +1,6 @@
-from flask import Flask, redirect, render_template, request, Response
+from flask import Flask, redirect, request, Response
 
-from spacyclient import get_client, DEFAULT_MODEL
+from spacyclient import get_client, DEFAULT_MODEL, CLIENTS
 
 app = Flask(__name__)
 app.config['FLASK_DEBUG'] = True
@@ -15,7 +15,7 @@ def home():
 def form(model):
     client = get_client(model)
     if not client:
-        return Response(status=500)
+        return Response(status=404)
     return Response("""<http>
     <head></head>
     <body>
@@ -27,13 +27,33 @@ def form(model):
     </http>""")
 
 
+def process_request(client, request):
+    if request.json:
+        return client.process_json(request.json)
+    elif request.form:
+        text = request.form['text']
+        return client.process_text(text)
+
+
 @app.route("/<model>", methods=['POST'])
 def analyze(model):
     client = get_client(model)
     if not client:
-        return Response(status=500)
-    text = request.form['text']
-    result = client.process_text(text)
-    if not result:
-        return Response(status=400)
+        return Response(status=404)
+    result = None
+    try:
+        result = process_request(client, request)
+        assert result
+    except Exception as e:
+        return Response(str(e), status=500)
     return result  # auto-jsonified
+
+
+@app.route("/all", methods=['POST'])
+def analyze_all():
+    result = {}
+    for name, client in CLIENTS.items():
+        if not client:
+            continue
+        result[name] = process_request(client, request)
+    return result
