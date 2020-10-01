@@ -52,6 +52,13 @@ def analyze(model):
 @app.route("/all", methods=['POST'])
 def analyze_all():
     result = {}
+    models = []
+    if request.json:
+        models = request.json.get('models', [])
+    elif request.forms:
+        models = request.forms.get('models', [])
+    for model in models:
+        get_client(models)
     for name, client in CLIENTS.items():
         if not client:
             continue
